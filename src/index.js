@@ -38,7 +38,28 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let result = '';
+    let tempResult = '';
+
+    const exprLength = expr.length / 10;
+	for (let i = 0; i < exprLength; i++) {
+		let tempArr = expr.slice(i * 10, i * 10 + 10);
+        let tempEl = String(parseInt(tempArr, 10));
+        if (tempEl !== 'NaN') {
+            tempResult = '';
+            for (let j = 0; j < tempEl.length; j = j + 2) {
+                if (tempEl[j] === '1' && tempEl[j + 1] === '1') {
+                    tempResult = `${tempResult}-`;
+                } else if (tempEl[j] === '1' && tempEl[j + 1] === '0') {
+                    tempResult = `${tempResult}.`;
+                }
+            }
+            result = `${result}${MORSE_TABLE[tempResult]}`;
+        } else {
+            result = `${result} `;
+        }
+	}
+    return result;
 }
 
 module.exports = {
